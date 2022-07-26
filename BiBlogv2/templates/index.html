@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="jumbotron text-center">
+    <h3>|BiBlog'a Hoş Geldiniz|</h3>
+    <br>
+    <p>Bu blog geliştirme aşamasındadır;</p>
+        <p>Dilediğiniz içerikleri bloga kayıt olduktan sonra diğer kullanıcıların okuması için paylaşabilir ve diğer kullanıcıların içeriklerini keyifle okuyabilirsiniz. </p>
+
+    </div>
+
+
+<div class="text-center">
+<p>
+    {% if request.user.is_authenticated %}
+        Giriş Yapıldı.
+    <br>
+    Giriş yapan:  {{request.user.username}}
+
+
+    {% else %}
+        Giriş Yapılmadı...
+
+    {% endif %}
+
+
+</p>
+</div>
+{% endblock %}

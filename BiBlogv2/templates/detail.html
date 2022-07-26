@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Post content-->
+                <article>
+                    <!-- Post header-->
+                    <header class="mb-4">
+                        <!-- Post title-->
+                        <h2 class="fw-bolder mb-1">{{article.title}}</h1>
+                        <p class ="lead">
+                            {{article.author.username}} tarafından
+                        </p>
+                        <!-- Post meta content-->
+                        <div class="text-muted fst-italic mb-2">{{article.created_date}} tarihinde oluşturuldu.</div>
+
+                    </header>
+                    <hr>
+                    <!-- Preview image figure-->
+                    {% if article.article_image %}
+                        <figure class="mb-4"><img class="img-fluid rounded" src="{{article.article_image.url}}" alt="..." draggable="false" style="filter: blur(0px);"></figure>
+                     {%  endif %}
+                    <!-- Post content-->
+                    <section class="mb-5">
+                        <p>
+
+                            {{article.content|safe}}
+                        </p>
+                    </section>
+                </article>
+            </div>
+        </div>
+    </div>
+
+<br>
+<hr></div></div></div>
+<div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-8">
+        <div class="card bg-light" >
+            <br>
+            <h5>Yorum Yap:</h5>
+            <div class="card-body">
+                <!-- Comment form-->
+                <form method = "post" action = "{% url 'article:comment' article.id %}" class="mb-1">
+                    {% csrf_token %}
+                    <div class="form-group"><textarea class="form-control" name = "comment_author" rows="1" placeholder="Kullanıcı Adı"></textarea>
+                    </div>
+                    <div class="form-group"><textarea class="form-control" name = "comment_content" rows="3" placeholder="Yorumunuzu Yazınız"></textarea>
+                    </div>
+                    <button class="btn btn-danger" type="submit">Yorum Gönder</button>
+                </form>
+                <br>
+
+                {% if comments %}
+                <h4>Yorumlar</h4>
+
+                    {% for comment in comments %}
+                        <!-- Single comment-->
+                        <br>
+                        <br><br>
+                        <div class="d-flex">
+                            <div class="ms-1">
+                                <div class="fw-bold">{{comment.comment_author}} tarafından</div>
+                                    {{comment.comment_date}} tarihinde yazılmış;
+                                    <br>
+                                    {{comment.comment_content}}
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                {% else%}
+                    <div class = "alert alert-danger">
+                        Bu içeriğe yorum yapılmamış. Neden ilk yorumu sen yapmayasın :)
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+                </div>
+            </div>
+    </div>
+
+
+
+
+{% endblock body %}
